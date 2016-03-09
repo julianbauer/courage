@@ -1,9 +1,12 @@
 import './index.styl';
 import React from 'react';
+import Relay from 'react-relay';
 
-export default class Stories extends React.Component {
+export class Stories extends React.Component {
 
 	render() {
+
+    console.log(this.props.viewer);
 
 		var storyImage1 = require('../../assets/images/quinta.jpg')
 		var storyImage2 = require('../../assets/images/nashorn.jpg')
@@ -18,6 +21,16 @@ export default class Stories extends React.Component {
 
 		return (
 			<div>
+        {this.props.viewer.allStorys.edges.map((node) => (
+          <article className="story">
+            <div className="story-content">
+              <h1>{node.title}</h1>
+              <p>{node.content}</p>
+            </div>
+            <div className="story-image" style={storyImageStyle1}></div>
+          </article>
+          ))
+        }
 				<article className="story">
           <div className="story-content">
             <h1>Das ist Quinta, ...</h1>
@@ -43,3 +56,20 @@ Durch ein wenig Geben kann so viel erreicht werden, die Jugendlichen opfern ihre
 		)
 	}
 }
+
+export default Relay.createContainer(Stories, {
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        allStorys(first: 2) {
+          edges {
+            node {
+              title
+              content
+            }
+          }
+        }
+      }
+    `,
+  },
+})
