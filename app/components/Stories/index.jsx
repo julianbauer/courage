@@ -21,8 +21,8 @@ export class Stories extends React.Component {
 
 		return (
 			<div>
-        {this.props.viewer.allStorys.edges.map((node) => (
-          <article className="story">
+        {this.props.viewer.allStorys.edges.map(({node}) => (
+          <article key={node.id} className="story">
             <div className="story-content">
               <h1>{node.title}</h1>
               <p>{node.content}</p>
@@ -31,27 +31,6 @@ export class Stories extends React.Component {
           </article>
           ))
         }
-				<article className="story">
-          <div className="story-content">
-            <h1>Das ist Quinta, ...</h1>
-            <p>
-              Sie ist schon zum 3. Mal dabei und ihr Faible für Pink ist unübersehbar. Die Hilfsgüter, der Transport der Kinder sowie die Verpflegung und Versorgung kann anders nicht gewährt werden.<br/>
-Durch ein wenig Geben kann so viel erreicht werden, die Jugendlichen opfern ihre Zeit auf und empfangen so viel dafür, ihnen das zu ermöglichen und vor allem Afrikanischen Kranken einmal in ihrem Leben wirkliche Ferien zu ermöglichen, dazu kann jeder beisteuern! Courage!
-            </p>
-          </div>
-          <div className="story-image" style={storyImageStyle1}></div>
-				</article>
-
-				<article className="story">
-          <div className="story-content">
-            <h1>Elefanten, Büffel und Nashörner</h1>
-            <p>
-              Die Hilfsgüter, der Transport der Kinder sowie die Verpflegung und Versorgung kann anders nicht gewährt werden.<br/>
-Durch ein wenig Geben kann so viel erreicht werden, die Jugendlichen opfern ihre Zeit auf und empfangen so viel dafür, ihnen das zu ermöglichen und vor allem Afrikanischen Kranken einmal in ihrem Leben wirkliche Ferien zu ermöglichen, dazu kann jeder beisteuern! Courage!            </p>
-          </div>
-          <div className="story-image" style={storyImageStyle2}></div>
-				</article>
-
 			</div>
 		)
 	}
@@ -64,6 +43,7 @@ export default Relay.createContainer(Stories, {
         allStorys(first: 2) {
           edges {
             node {
+							id
               title
               content
             }

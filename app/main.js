@@ -18,7 +18,7 @@ export function saveToken (token: string): void {
   window.localStorage.setItem('token', token)
 }
 
-const StoriesQuery = {
+const ViewerQuery = {
   viewer: (Component) => Relay.QL`
     query {
       viewer {
@@ -34,7 +34,7 @@ render(
       <IndexRedirect to="/stories" />
       <Route path="projekt" component={Projekt}/>
       <Route path="helfen" component={Helfen}/>
-      <Route path="stories" component={Stories} queries={StoriesQuery} />
+      <Route path="stories" component={Stories} queries={ViewerQuery} />
       <Route path="kontakt" component={Kontakt}/>
     </Route>
   </RelayRouter>,
